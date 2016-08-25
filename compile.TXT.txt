@@ -1,0 +1,57 @@
+ -Warning- The UNDO command is not available until you change            
+           your edit profile using the command RECOVERY ON.              
+ //TRC091CC  JOB (MVS,MVS,TCSMVS,D2,DT99X),'COBOL COMPILE',              
+ //            NOTIFY=&SYSUID,MSGLEVEL=(1,1),MSGCLASS=X,TIME=(,3)        
+ //*                                                                     
+ //COBCOMP  PROC WSPC=200,                        work space for datasets
+ //             WUNIT=VIO,                        work space unit        
+ //             MEMBER='CSEX2',                    SOURCE MEMBER NAME    
+ //             SRCE='TRT043.COBOL.SRCE',       SOURCE PDS               
+ //             LOADLIB='TRT043.COBOL.LOADLIB'                           
+ //*                                                                     
+ //*-----------------------------------------------------------------*   
+ //*                   Compile Step                                  *   
+ //*-----------------------------------------------------------------*   
+ //COBCMP   EXEC PGM=IGYCRCTL,                                           
+ //    PARM=('SOURCE,APOST,MAP,LIST,LIB,,XREF,NODUMP'),                  
+ //         REGION=4096K                                                 
+//STEPLIB  DD  DISP=SHR,DSN=IGY.SIGYCOMP                                
+//SYSLIB   DD  DUMMY                                                    
+//SYSIN    DD  DSN=&SRCE(&MEMBER),DISP=SHR                              
+//SYSLIN   DD  DSN=&&LOADSET,DISP=(,PASS),UNIT=&WUNIT,                  
+//             SPACE=(TRK,(2,2)),                                       
+//             DCB=(RECFM=FB,LRECL=80,BLKSIZE=3200)                     
+//SYSPRINT DD  SYSOUT=*                                                 
+//SYSTERM  DD  UNIT=SYSDA,SPACE=(TRK,(5,2))                             
+//SYSUDUMP DD  SYSOUT=*                                                 
+//SYSPUNCH DD  DUMMY                                                    
+//SYSUT1   DD  SPACE=(800,(&WSPC,&WSPC),,,ROUND),UNIT=&WUNIT            
+//SYSUT2   DD  SPACE=(800,(&WSPC,&WSPC),,,ROUND),UNIT=&WUNIT            
+//SYSUT3   DD  SPACE=(800,(&WSPC,&WSPC),,,ROUND),UNIT=&WUNIT            
+//SYSUT4   DD  SPACE=(800,(&WSPC,&WSPC),,,ROUND),UNIT=&WUNIT            
+//SYSUT5   DD  SPACE=(800,(&WSPC,&WSPC),,,ROUND),UNIT=&WUNIT            
+//SYSUT6   DD  SPACE=(800,(&WSPC,&WSPC),,,ROUND),UNIT=&WUNIT            
+//SYSUT7   DD  SPACE=(800,(&WSPC,&WSPC),,,ROUND),UNIT=&WUNIT            
+//*-----------------------------------------------------------------*   
+ //*                   Link-edit Step                                *  
+ //*-----------------------------------------------------------------*  
+ //LKED     EXEC PGM=IEWL,REGION=320K,                                  
+ //         PARM='TEST,RENT,REUS,LET,AMODE=31,RMODE=ANY,MAP,LIST,XREF', 
+ //         COND=(4,LT,COBCMP)                                          
+ //SYSLIB   DD  DSN=CEE.SCEELKED,DISP=SHR                               
+ //         DD  DSN=CEE.SCEERUN,DISP=SHR                                
+ //SYSLIN   DD  DSN=*.COBCMP.SYSLIN,DISP=(OLD,DELETE)                   
+ //SYSLMOD  DD  DSN=&LOADLIB(&MEMBER),DISP=SHR                          
+ //SYSPRINT DD  SYSOUT=*                                                
+ //SYSUT1   DD  UNIT=&WUNIT,SPACE=(TRK,(1,2))                           
+ //SYSUT2   DD  UNIT=&WUNIT,SPACE=(TRK,(1,2))                           
+ //SYSUDUMP DD  DUMMY                                                   
+     TRT043.COBOL.JCL(COBCOMP) - 01.07               Columns 00001 00072 
+ //SYSIN    DD  DUMMY                                                    
+ //         PEND                                                         
+ //*-----------------------------------------------------------------*   
+ //*                   Execcute the specified proc                   *   
+ //*-----------------------------------------------------------------*   
+ //COMPCOB  EXEC PROC=COBCOMP                                            
+ //*                                                                     
+ **************************** Bottom of Data ****************************

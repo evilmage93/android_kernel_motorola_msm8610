@@ -1,0 +1,12 @@
+          your edit profile using the command RECOVERY ON.            
+//RUNJCL JOB (123),'RUNJCL',                                          
+//         MSGCLASS=X,MSGLEVEL=(1,1),NOTIFY=&SYSUID,TIME=(,3)         
+//JOBLIB DD DSN=TRT043.COBOL.LOADLIB,DISP=MOD                         
+//STEP1    EXEC PGM=CSEX2                                             
+//SYSOUT   DD SYSOUT=*                                                
+//*IN       DD DSN=XXXXXX.INPUT.ACCOUNT,DISP=SHR                      
+//*OUT      DD DSN=XXXXXX.INPUT.ACCOUNT,DISP=(NEW,CATLG,DELETE),      
+//*           SPACE=(TRK,(1,1),RLSE),                                 
+//*           DCB=(RECFM=FB,LRECL=80,BLKSIZE=800,DSORG=PS)            
+//SYSIN    DD DUMMY                                                   
+/*                                                                    

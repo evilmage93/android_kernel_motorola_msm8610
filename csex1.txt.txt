@@ -1,0 +1,26 @@
+ *                                                                
+  PROCEDURE DIVISION.                                             
+  MAIN-PARA.                                                      
+       MOVE -5555.77 TO WS-COMP-3.                                
+       DISPLAY 'WS-COMP-3: ', WS-COMP-3.                          
+       MOVE 100 TO WS-COMP-1, WS-COMP-2.                          
+       COMPUTE WS-RESULT = WS-COMP-1 * WS-COMP-2.                 
+       DISPLAY 'WS-RESULT: ', WS-RESULT.                          
+       DISPLAY 'WS-COMP-1: ', WS-COMP-1.                          
+       DISPLAY 'WS-COMP-2: ', WS-COMP-2.                          
+       MOVE 865 TO WS-COMP.                                       
+       DISPLAY 'WS-COMP: ', WS-COMP.                              
+       MOVE 657 TO WS-COMP-SYNC.                                  
+       DISPLAY 'WS-COMP-SYNC :', WS-COMP-SYNC.                    
+       MOVE 'SGN' TO WS-JUST-RGT.                                 
+ MOVE 'SGN' TO WS-JUST-RGT.               
+ DISPLAY 'WS-JUST-RGT: ', WS-JUST-RGT.    
+ MOVE 46858 TO WS-N.                      
+ DISPLAY 'WS-N: ', WS-N.       
+          DISPLAY 'WS-A-REDEF: ', WS-A-REDEF.           
+          DISPLAY 'WS-SGN-TRL-SEP: ', WS-SGN-TRL-SEP.   
+          DISPLAY 'WS-SGN-LED-SEP: ', WS-SGN-LED-SEP.   
+          DISPLAY 'WS-SGN-TRL: ', WS-SGN-TRL.           
+          DISPLAY 'WS-SGN-LED: ', WS-SGN-LED.           
+          STOP RUN.                                                
+                                                                        
